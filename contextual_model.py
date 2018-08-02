@@ -132,14 +132,16 @@ def load_model(input_shape, num_labels, axis=-1,base_filter=32, depth_size=3, se
     elif depth_size == 3:
         u3 = deconv3d(d4, d3, base_filter*4, se_res_block=se_res_block)
         c3 = contextual_convolution(d4,u3,base_filter*4,1)#
+		
+		d5=d4
     else:
         raise Exception('depth size must be 3 or 4. you put ', depth_size)
     
     u2 = deconv3d(c3, d2, base_filter*2, se_res_block=se_res_block)
-    c2 = contextual_convolution(d4,u2,base_filter*2,2)#
+    c2 = contextual_convolution(d5,u2,base_filter*2,2)#
 
     u1 = deconv3d(c2, d1, base_filter, se_res_block=False)
-    c1 = contextual_convolution(d4,u1,base_filter,4)#
+    c1 = contextual_convolution(d5,u1,base_filter,4)#
     
     output_img = Conv3D(num_labels, kernel_size=1, strides=1, padding='same', activation='sigmoid')(c1)
     if last_relu == True:
