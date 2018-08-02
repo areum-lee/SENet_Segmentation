@@ -1,3 +1,10 @@
+# contextual_model
+
+# Model 
+
+- contextual_model.py
+
+
 # SENet_Segmentation - ver.PyTorch
 
 # Prerequisites
